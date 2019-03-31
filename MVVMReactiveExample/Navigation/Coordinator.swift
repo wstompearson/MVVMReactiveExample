@@ -14,22 +14,24 @@ final class Coordinator {
     var postsNavigationController: UINavigationController {
         return splitViewController.viewControllers[0] as! UINavigationController
     }
-    
+
     init(_ splitView: UISplitViewController) {
         self.splitViewController = splitView
         self.splitViewController.loadViewIfNeeded()
         postsNavigationController.navigationBar.prefersLargeTitles = true
-        
+
         let postsVC = postsNavigationController.viewControllers.first as! PostsTableViewController
         postsVC.delegate = self
     }
-    
+
     func presentErrorAlert(_ error: Error) {
         DispatchQueue.main.async {
-            self.postsNavigationController.presentErrorAlert(title: error.localizedDescription)
+            self.postsNavigationController.presentErrorAlert(error)
         }
     }
 }
+
+extension UINavigationController: ErrorPresenter {}
 
 extension Coordinator: PostsViewControllerDelegate {
     func didSelect(_ post: Post) {

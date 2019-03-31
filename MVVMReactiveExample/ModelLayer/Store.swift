@@ -14,17 +14,17 @@ class Store {
     private(set) var posts = BehaviorRelay<[Post]>(value: [])
     private(set) var users = BehaviorRelay<[User]>(value: [])
     private(set) var comments = BehaviorRelay<[Comment]>(value: [])
-    
+
     private var localStore: LocalStore!
     private let disposeBag = DisposeBag()
-    
+
     static let shared = Store()
-    
+
     private init() {}
-    
+
     func initialise(localStore: LocalStore = RealmLocalStore(), errorHandler: @escaping (Error) -> Void) {
         self.localStore = localStore
-        
+
         Requester<Post>(fetchable: Post.self)
             .get(relay: posts, disposeBag: disposeBag, localStore: localStore, errorHandler: errorHandler)
 
@@ -44,7 +44,7 @@ extension Store: AdditionalPostDetailsFetcher {
     func getUser(withId id: Int) -> User? {
         return users.value.first(where: {$0.id == id})
     }
-    
+
     func getComments(forPostId id: Int) -> [Comment] {
         return comments.value.filter { $0.postId == id }
     }

@@ -10,12 +10,12 @@ import RealmSwift
 
 final class PostObject: Object, RealmStoreable {
     typealias AssociatedModel = Post
-    
+
     @objc dynamic var userId: Int = -1
     @objc dynamic var id: Int = -1
     @objc dynamic var title: String = ""
     @objc dynamic var body: String = ""
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }

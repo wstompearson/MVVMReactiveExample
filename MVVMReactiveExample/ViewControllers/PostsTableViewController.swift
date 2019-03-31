@@ -17,22 +17,22 @@ protocol PostsViewControllerDelegate: class {
 class PostsTableViewController: UITableViewController {
     weak var delegate: PostsViewControllerDelegate?
     let disposeBag = DisposeBag()
-    
+
     let viewModel = PostsTableViewViewModel()
-    
+
     override func viewDidLoad() {
         createSearchController()
         bindSearchController()
         bindViewModel()
     }
-    
+
     func createSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
         navigationItem.searchController = searchController
     }
-    
+
     func bindSearchController() {
         navigationItem.searchController?.searchBar.rx.text
             .orEmpty
@@ -41,18 +41,18 @@ class PostsTableViewController: UITableViewController {
             .bind(to: viewModel.searchValue)
             .disposed(by: disposeBag)
     }
-    
+
     func bindViewModel() {
         viewModel.navigationTitle
             .drive(navigationItem.rx.title)
             .disposed(by: disposeBag)
-        
+
         tableView.dataSource = nil
         viewModel.postTitles
             .drive(tableView.rx.items(cellIdentifier: .cellIdentifier)) { _, title, cell in
                 cell.textLabel?.text = title
             }.disposed(by: disposeBag)
-        
+
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else {

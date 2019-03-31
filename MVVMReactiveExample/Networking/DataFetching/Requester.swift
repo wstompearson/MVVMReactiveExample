@@ -12,13 +12,13 @@ import RxCocoa
 
 struct Requester<T: FetchableModel> {
     private let url: URL
-    
+
     init<T: FetchableModel>(fetchable: T.Type, queryItems: QueryItem...) {
         self.url = QueryBuilder(queryDataType: T.queryStringPath)
             .addQueryItems(queryItems)
             .build()
     }
-    
+
     func get<T: FetchableModel>(relay: BehaviorRelay<[T]>, disposeBag: DisposeBag, localStore: LocalStore, errorHandler: @escaping (Error) -> Void) {
         ReactiveDataFetcher().request(url: url, type: [T].self)
             .subscribe(onNext: { items in

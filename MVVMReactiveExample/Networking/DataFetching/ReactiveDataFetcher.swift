@@ -12,7 +12,7 @@ import RxSwift
 struct ReactiveDataFetcher {
     func request<T: Decodable>(url: URL, type: T.Type) -> Observable<T> {
         return Observable.create { observer in
-            let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
                 guard let data = data else {
                     observer.onError(DataFetchingError.noData)
                     return
@@ -30,7 +30,7 @@ struct ReactiveDataFetcher {
                 observer.onCompleted()
             })
             task.resume()
-            
+
             return Disposables.create {
                 task.cancel()
             }

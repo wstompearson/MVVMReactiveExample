@@ -13,7 +13,7 @@ enum QueryItem {
     case idFilter(Int)
     case from(startIndex: Int)
     case to(endIndex: Int) //non inclusive
-    
+
     var key: String {
         switch self {
         case .limit:
@@ -26,7 +26,7 @@ enum QueryItem {
             return "_end"
         }
     }
-    
+
     var value: String {
         switch self {
         case .limit(let limit):

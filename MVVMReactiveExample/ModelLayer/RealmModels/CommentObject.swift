@@ -10,13 +10,13 @@ import RealmSwift
 
 final class CommentObject: Object, RealmStoreable {
     typealias AssociatedModel = Comment
-        
+
     @objc dynamic var postId: Int = -1
     @objc dynamic var id: Int = -1
     @objc dynamic var name: String = ""
     @objc dynamic var email: String = ""
     @objc dynamic var body: String = ""
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }

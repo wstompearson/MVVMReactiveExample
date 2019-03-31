@@ -10,7 +10,7 @@ import RealmSwift
 
 protocol RealmStoreable where Self: Object {
     associatedtype AssociatedModel: FetchableModel
-    
+
     init(model: AssociatedModel)
 }
 

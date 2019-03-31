@@ -9,6 +9,6 @@
 import RxCocoa
 
 protocol LocalStore {
-    func listen<T: FetchableModel>(relay: BehaviorRelay<[T]>) 
+    func listen<T: FetchableModel>(relay: BehaviorRelay<[T]>)
     func loadModels<T: RealmStoreable>(storeableType: T.Type) -> [T.AssociatedModel]
 }

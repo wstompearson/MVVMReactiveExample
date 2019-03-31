@@ -22,7 +22,7 @@ class RealmLocalStore: LocalStore {
             })
             .disposed(by: disposeBag)
     }
-    
+
     func loadModels<T: RealmStoreable>(storeableType: T.Type) -> [T.AssociatedModel] {
         return Database().fetch(storedType: T.self)
     }

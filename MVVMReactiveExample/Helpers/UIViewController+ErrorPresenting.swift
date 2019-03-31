@@ -8,12 +8,22 @@
 
 import UIKit
 
-extension UIViewController {
-    typealias PopupHandler = ((UIAlertAction) -> Void)?
-    
-    func presentErrorAlert(title: String, handler: PopupHandler = nil) {
-        let ac = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: handler))
+protocol ErrorPresenter {
+    func presentErrorAlert(_ error: Error)
+}
+
+extension ErrorPresenter where Self: UIViewController {
+    func presentErrorAlert(_ error: Error) {
+        let errorMessage: String
+
+        if let description = (error as? LocalizedError)?.errorDescription {
+            errorMessage = description
+        } else {
+            errorMessage = "\(error)"
+        }
+
+        let ac = UIAlertController(title: "Whoops", message: errorMessage, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(ac, animated: true)
     }
 }

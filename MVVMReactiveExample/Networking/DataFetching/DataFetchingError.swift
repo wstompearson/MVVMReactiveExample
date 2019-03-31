@@ -10,7 +10,7 @@ import Foundation
 
 enum DataFetchingError: Error, LocalizedError {
     case noData
-    
+
     var errorDescription: String? {
         return "No network access"
     }

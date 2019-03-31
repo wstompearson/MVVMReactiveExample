@@ -20,14 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController.preferredDisplayMode = .allVisible
         splitViewController.delegate = self
         coordinator = Coordinator(splitViewController)
-        
+
         Store.shared.initialise(errorHandler: { [unowned self] error in
             self.coordinator?.presentErrorAlert(error)
         })
-        
+
         return true
     }
-    
+
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return true
     }

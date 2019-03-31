@@ -8,7 +8,7 @@
 
 protocol FetchableModel: Decodable {
     associatedtype StoredType: RealmStoreable
-    
+
     static var queryStringPath: String { get }
     init(object: StoredType)
 }
@@ -21,18 +21,18 @@ extension FetchableModel {
 
 extension Post: FetchableModel {
     typealias StoredType = PostObject
-    
+
     static let queryStringPath: String = "posts"
 }
 
 extension Comment: FetchableModel {
     typealias StoredType = CommentObject
-    
+
     static let queryStringPath: String = "comments"
 }
 
 extension User: FetchableModel {
     typealias StoredType = UserObject
-    
+
     static let queryStringPath: String = "users"
 }
